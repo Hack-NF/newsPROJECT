@@ -2,152 +2,214 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.5">
     <title>NewsSite</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../css/css.css">
+    <script src="../html/javascript.js" defer></script> <!-- Link to external JavaScript -->
 </head>
+<style>
+    .news-item {
+        margin-bottom: 40px;
+    }
+    .news-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+    .news-description h2 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+    .news-description p {
+        font-size: 16px;
+        color: #666;
+        line-height: 1.5;
+    }
+</style>
 
 <body>
    <!-- Secondary Navbar -->
    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="../images/images.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-        </a>
-        <form class="d-flex ms-auto me-3">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-primary" type="submit">Search</button>
-        </form>
-        <button class="btn btn-warning ms-2">Subscribe</button>
-    </div>
-</nav>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../images/images.png" alt="Logo" width="35" height="35" class="d-inline-block align-text-top">
+            </a>
+            <form class="d-flex ms-auto me-3" onsubmit="return handleSearch(event)">
+              <input class="form-control me-2" type="search" id="searchInput" placeholder="Search" aria-label="Search" required>
+              <button class="btn btn-outline-primary" type="submit">Search</button>
+          </form>
+          
+            <button class="btn btn-warning ms-2" data-bs-toggle="modal" data-bs-target="#subscribeModal">Subscribe</button>
+        </div>
+    </nav>
 
-<!-- Main Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mt-2">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">NewsSite</a>
-        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="home-A.html">Home</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">Categories</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="sports-B.html">Sports</a></li>
-                        <li><a class="dropdown-item" href="entertainment-C.html">Entertainment</a></li>
-                        <li><a class="dropdown-item" href="tech-E.html">Tech</a></li>
-                        <li><a class="dropdown-item" href="health-D.html">Health</a></li>                      
-                        <li><a class="dropdown-item" href="world.html">World</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Terms-OF-services-G.html">privacy-policy</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact-F.html">Contact</a>
-                </li>
-            </ul>
-            <button class="btn btn-light me-2">Sign In</button>
+    <!-- Subscription Modal -->
+    <div class="modal fade" id="subscribeModal" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="subscribeModalLabel">Subscribe to Our Newsletter</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="subscriptionForm" onsubmit="return handleSubscription(event)">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Your email" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-</nav>
-<div class="country-selector">
-    <h2>Countries</h2>
-    <ul>
-        <li><a href="#usa">USA</a></li>
-        <li><a href="#uk">UK</a></li>
-        <li><a href="#france">France</a></li>
-        <!-- Add more countries -->
-    </ul>
-</div>
 
-<div id="usa" class="country-section">
-    <h2>USA News</h2>
-    <div class="news-grid">
-        <div class="news-card large">
-            <img src="usa-large.jpg" alt="Large USA News">
-            <div class="news-info">
-                <h3>Big News from USA</h3>
-                <p>Detailed description of the major USA news article.</p>
+    <!-- Main Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mt-2">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">NewsSite</a>
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home-A.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">Categories</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="sports-B.html">Sports</a></li>
+                            <li><a class="dropdown-item" href="entertainment-C.html">Entertainment</a></li>
+                            <li><a class="dropdown-item" href="tech-E.html">Tech</a></li>
+                            <li><a class="dropdown-item" href="health-D.html">Health</a></li>                      
+                            <li><a class="dropdown-item" href="world.html">World</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Terms-OF-services-G.html">Privacy Policy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact-F.html">Contact</a>
+                    </li>
+                </ul>
+                <button class="btn btn-light me-2">Sign In</button>
             </div>
         </div>
-        <div class="news-card small">
-            <img src="usa-small.jpg" alt="Small USA News">
-            <div class="news-info">
-                <h3>Small Update from USA</h3>
-                <p>A brief summary of a smaller USA news story.</p>
-            </div>
-        </div>
-        <div class="news-card medium">
-            <img src="usa-medium.jpg" alt="Medium USA News">
-            <div class="news-info">
-                <h3>Medium-Sized Story from USA</h3>
-                <p>Description of the medium-sized news story from USA.</p>
-            </div>
-        </div>
-    </div>
-</div>
+    </nav>
 
-<div id="uk" class="country-section">
-    <h2>UK News</h2>
-    <div class="news-grid">
-        <div class="news-card medium">
-            <img src="uk-medium.jpg" alt="UK Medium News">
-            <div class="news-info">
-                <h3>Breaking News from UK</h3>
-                <p>Details of a significant event from the UK.</p>
-            </div>
-        </div>
-        <div class="news-card large">
-            <img src="uk-large.jpg" alt="UK Large News">
-            <div class="news-info">
-                <h3>Major Story from the UK</h3>
-                <p>A detailed breakdown of the major UK news.</p>
-            </div>
-        </div>
-        <div class="news-card small">
-            <img src="uk-small.jpg" alt="UK Small News">
-            <div class="news-info">
-                <h3>Quick UK Update</h3>
-                <p>A brief summary of minor UK news.</p>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div id="france" class="country-section">
-    <h2>France News</h2>
-    <div class="news-grid">
-        <div class="news-card small">
-            <img src="france-small.jpg" alt="France Small News">
-            <div class="news-info">
-                <h3>France Quick News</h3>
-                <p>Summary of a minor event in France.</p>
+    
+
+    <div class="container">
+        <div class="row">
+            <!-- First news item (Image on right) -->
+            <div class="col-12 news-item">
+                <div class="row align-items-center">
+                    <div class="col-md-6 news-description">
+                        <h2>News Headline 1</h2>
+                        <p>This is a description for the first news article. Provide detailed information here.</p>
+                    </div>
+                    <div class="col-md-6 news-image">
+                        <img src="../images/digital-firewall-pakistan-internet.jpg" alt="World News Image 1">
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="news-card large">
-            <img src="france-large.jpg" alt="France Large News">
-            <div class="news-info">
-                <h3>France Major Story</h3>
-                <p>Details of a significant news story from France.</p>
+
+            <!-- Second news item (Image on left) -->
+            <div class="col-12 news-item">
+                <div class="row align-items-center">
+                    <div class="col-md-6 news-image">
+                        <img src="your-image2.jpg" alt="World News Image 2">
+                    </div>
+                    <div class="col-md-6 news-description">
+                        <h2>News Headline 2</h2>
+                        <p>This is a description for the second news article. Provide detailed information here.</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="news-card medium">
-            <img src="france-medium.jpg" alt="France Medium News">
-            <div class="news-info">
-                <h3>France Medium News</h3>
-                <p>Description of medium-sized event in France.</p>
+
+            <!-- Third news item (Image on right) -->
+            <div class="col-12 news-item">
+                <div class="row align-items-center">
+                    <div class="col-md-6 news-description">
+                        <h2>News Headline 3</h2>
+                        <p>This is a description for the third news article. Provide detailed information here.</p>
+                    </div>
+                    <div class="col-md-6 news-image">
+                        <img src="your-image3.jpg" alt="World News Image 3">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fourth news item (Image on left) -->
+            <div class="col-12 news-item">
+                <div class="row align-items-center">
+                    <div class="col-md-6 news-image">
+                        <img src="your-image4.jpg" alt="World News Image 4">
+                    </div>
+                    <div class="col-md-6 news-description">
+                        <h2>News Headline 4</h2>
+                        <p>This is a description for the fourth news article. Provide detailed information here.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Third news item (Image on right) -->
+            <div class="col-12 news-item">
+                <div class="row align-items-center">
+                    <div class="col-md-6 news-description">
+                        <h2>News Headline 3</h2>
+                        <p>This is a description for the third news article. Provide detailed information here.</p>
+                    </div>
+                    <div class="col-md-6 news-image">
+                        <img src="your-image3.jpg" alt="World News Image 3">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fourth news item (Image on left) -->
+            <div class="col-12 news-item">
+                <div class="row align-items-center">
+                    <div class="col-md-6 news-image">
+                        <img src="your-image4.jpg" alt="World News Image 4">
+                    </div>
+                    <div class="col-md-6 news-description">
+                        <h2>News Headline 4</h2>
+                        <p>This is a description for the fourth news article. Provide detailed information here.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Third news item (Image on right) -->
+            <div class="col-12 news-item">
+                <div class="row align-items-center">
+                    <div class="col-md-6 news-description">
+                        <h2>News Headline 3</h2>
+                        <p>This is a description for the third news article. Provide detailed information here.</p>
+                    </div>
+                    <div class="col-md-6 news-image">
+                        <img src="your-image3.jpg" alt="World News Image 3">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fourth news item (Image on left) -->
+            <div class="col-12 news-item">
+                <div class="row align-items-center">
+                    <div class="col-md-6 news-image">
+                        <img src="your-image4.jpg" alt="World News Image 4">
+                    </div>
+                    <div class="col-md-6 news-description">
+                        <h2>News Headline 4</h2>
+                        <p>This is a description for the fourth news article. Provide detailed information here.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 <!-- footer -->

@@ -51,8 +51,8 @@ body {
   }
   
   .card-horizontal .card-img-left {
-    width: 80px; /* Adjust image width */
-    height: 80px; /* Adjust image height */
+    width: 250px; /* Adjust image width */
+    height: 150px; /* Adjust image height */
     object-fit: cover;
   }
   

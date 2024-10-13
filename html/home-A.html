@@ -8,56 +8,80 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../css/css.css">
+    <script src="../html/javascript.js" defer></script> <!-- Link to external JavaScript -->
 </head>
 
 <body>
    <!-- Secondary Navbar -->
    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="../images/images.png" alt="Logo" width="35" height="35" class="d-inline-block align-text-top">
-        </a>
-        <form class="d-flex ms-auto me-3">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-primary" type="submit">Search</button>
-        </form>
-        <button class="btn btn-warning ms-2">Subscribe</button>
-    </div>
-</nav>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../images/images.png" alt="Logo" width="35" height="35" class="d-inline-block align-text-top">
+            </a>
+            <form class="d-flex ms-auto me-3" onsubmit="return handleSearch(event)">
+              <input class="form-control me-2" type="search" id="searchInput" placeholder="Search" aria-label="Search" required>
+              <button class="btn btn-outline-primary" type="submit">Search</button>
+          </form>
+          
+            <button class="btn btn-warning ms-2" data-bs-toggle="modal" data-bs-target="#subscribeModal">Subscribe</button>
+        </div>
+    </nav>
 
-<!-- Main Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mt-2">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">NewsSite</a>
-        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="home-A.html">Home</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">Categories</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="sports-B.html">Sports</a></li>
-                        <li><a class="dropdown-item" href="entertainment-C.html">Entertainment</a></li>
-                        <li><a class="dropdown-item" href="tech-E.html">Tech</a></li>
-                        <li><a class="dropdown-item" href="health-D.html">Health</a></li>                      
-                        <li><a class="dropdown-item" href="world.html">World</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Terms-OF-services-G.html">privacy-policy</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact-F.html">Contact</a>
-                </li>
-            </ul>
-            <button class="btn btn-light me-2">Sign In</button>
+    <!-- Subscription Modal -->
+    <div class="modal fade" id="subscribeModal" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="subscribeModalLabel">Subscribe to Our Newsletter</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="subscriptionForm" onsubmit="return handleSubscription(event)">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Your email" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-</nav>
+
+    <!-- Main Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mt-2">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">NewsSite</a>
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home-A.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">Categories</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="sports-B.html">Sports</a></li>
+                            <li><a class="dropdown-item" href="entertainment-C.html">Entertainment</a></li>
+                            <li><a class="dropdown-item" href="tech-E.html">Tech</a></li>
+                            <li><a class="dropdown-item" href="health-D.html">Health</a></li>                      
+                            <li><a class="dropdown-item" href="world.html">World</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Terms-OF-services-G.html">Privacy Policy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact-F.html">Contact</a>
+                    </li>
+                </ul>
+                <button class="btn btn-light me-2">Sign In</button>
+            </div>
+        </div>
+    </nav>
+
 
 
   
@@ -364,10 +388,10 @@
         <div class="col-lg-2 col-md-6 mb-4">
             <h5>Quick Links</h5>
             <ul class="list-unstyled">
-                <li><a href="#" class="text-white">Home</a></li>
-                <li><a href="#" class="text-white">About</a></li>
-                <li><a href="#" class="text-white">Contact</a></li>
-                <li><a href="#" class="text-white">Terms of Service</a></li>
+                <li><a href="home-A.html" class="text-white">Home</a></li>
+                <li><a href="" class="text-white">About</a></li>
+                <li><a href="contact-F.html" class="text-white">Contact</a></li>
+                <li><a href="Terms-OF-services-G.html" class="text-white">Terms of Service</a></li>
                 <li><a href="#" class="text-white">Privacy Policy</a></li>
             </ul>
         </div>
